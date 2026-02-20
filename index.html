@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mediconsol — 의료 AI 플랫폼</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph (카카오톡, 문자, SNS 공유 미리보기) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.aatto.kr/" />
+  <meta property="og:title" content="Mediconsol — 의료 AI 플랫폼" />
+  <meta property="og:description" content="재활 스케줄 관리부터 EMR 검증, AI 워크플로우 자동화까지 — 메디콘솔의 의료 AI 서비스를 한 곳에서 접근하세요." />
+  <meta property="og:image" content="https://www.aatto.kr/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:site_name" content="Mediconsol" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mediconsol — 의료 AI 플랫폼" />
+  <meta name="twitter:description" content="재활 스케줄 관리부터 EMR 검증, AI 워크플로우 자동화까지" />
+  <meta name="twitter:image" content="https://www.aatto.kr/og-image.png" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0d14;
+      --surface:   #111827;
+      --surface2:  #1a2236;
+      --border:    rgba(99,179,237,0.12);
+      --teal:      #38bdf8;
+      --teal-dim:  #0ea5e9;
+      --teal-glow: rgba(56,189,248,0.15);
+      --green:     #34d399;
+      --purple:    #a78bfa;
+      --amber:     #fbbf24;
+      --rose:      #fb7185;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+    }
+
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,13,20,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .logo-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .logo-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .nav-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      background: var(--teal-glow);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 999px;
+      color: var(--teal);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      padding: 0.3rem 0.9rem;
+      background: var(--teal-glow);
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 999px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── Grid ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, linear-gradient(90deg, var(--teal), var(--purple)));
+      border-radius: 16px 16px 0 0;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99,179,237,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.1);
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .card-badge {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .badge-live {
+      background: rgba(52,211,153,0.15);
+      color: var(--green);
+      border: 1px solid rgba(52,211,153,0.3);
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.1rem;
+    }
+    .card-desc {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .card-link {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: var(--teal);
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+    .card-link svg { transition: transform 0.2s; }
+    .card:hover .card-link svg { transform: translateX(3px); }
+
+    /* accent variants */
+    .accent-teal   { --card-accent: linear-gradient(90deg, #38bdf8, #0ea5e9); }
+    .accent-purple { --card-accent: linear-gradient(90deg, #a78bfa, #7c3aed); }
+    .accent-green  { --card-accent: linear-gradient(90deg, #34d399, #059669); }
+    .accent-amber  { --card-accent: linear-gradient(90deg, #fbbf24, #d97706); }
+
+    .icon-teal   { background: rgba(56,189,248,0.12); }
+    .icon-purple { background: rgba(167,139,250,0.12); }
+    .icon-green  { background: rgba(52,211,153,0.12); }
+    .icon-amber  { background: rgba(251,191,36,0.12); }
+    .accent-rose { --card-accent: linear-gradient(90deg, #fb7185, #e11d48); }
+    .icon-rose   { background: rgba(251,113,133,0.12); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero-stats { gap: 1.5rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon"><img src="/favicon.png" alt="Mediconsol" /></div>
+    Mediconsol
+  </div>
+  <span class="nav-badge">● LIVE</span>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <span>⚡</span> Medical AI Platform
+  </div>
+  <h1>의료 현장을 위한<br /><span>AI 서비스 플랫폼</span></h1>
+  <p>재활 스케줄 관리부터 EMR 검증, AI 워크플로우 자동화까지 —<br />메디콘솔의 의료 AI 서비스를 한 곳에서 접근하세요.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">운영 중인 서비스</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">무중단 운영</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">SSL</div>
+      <div class="stat-label">전 서비스 암호화</div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<main class="section">
+  <div class="section-title">서비스 목록 — 5 Services</div>
+  <div class="grid">
+
+    <!-- RehabFlow -->
+    <a class="card accent-teal" href="https://rehab.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-teal">🏥</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div>
+        <div class="card-sub">rehab.aatto.kr</div>
+        <div class="card-title">RehabFlow</div>
+      </div>
+      <div class="card-desc">
+        재활운동센터 스케줄 관리 시스템. AG Grid 기반 타임테이블 편집, 치료사·환자 배정, NDT 자격 추적 및 일정 검증 기능을 제공합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">React 19</span>
+        <span class="tag">Express</span>
+        <span class="tag">AG Grid</span>
+        <span class="tag">TypeScript</span>
+      </div>
+      <div class="card-footer">
+        <span>재활 스케줄 · EMR 관리</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- RehabFlow EMR -->
+    <a class="card accent-purple" href="https://rehab2.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-purple">📋</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div>
+        <div class="card-sub">rehab2.aatto.kr</div>
+        <div class="card-title">RehabFlow EMR</div>
+      </div>
+      <div class="card-desc">
+        PT 스케줄 & EMR 교차 검증 시스템. 엑셀 파싱 기반 스케줄·EMR 비교 분석, 청구 누락·과청구 탐지, Gemini AI 분석 리포트를 제공합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Python</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Pandas</span>
+      </div>
+      <div class="card-footer">
+        <span>EMR 검증 · AI 분석</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- AI Practice -->
+    <a class="card accent-green" href="https://aitool.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-green">🤖</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div>
+        <div class="card-sub">aitool.aatto.kr</div>
+        <div class="card-title">AI Practice</div>
+      </div>
+      <div class="card-desc">
+        메디콘솔 AI 프랙티스 플랫폼. 의료 전문가가 직접 AI 워크플로우 도구를 만들고 실행할 수 있는 플랫폼으로, 문서 요약·환자 안내문 생성 등 업무 자동화를 지원합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">React 18</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Claude AI</span>
+        <span class="tag">Vite</span>
+      </div>
+      <div class="card-footer">
+        <span>AI 워크플로우 · 자동화</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Tidewave -->
+    <a class="card accent-rose" href="https://tidewave.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-rose">🌊</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div>
+        <div class="card-sub">tidewave.aatto.kr</div>
+        <div class="card-title">Tidewave</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 프로젝트 관리 플랫폼. GitHub 연동, PRD 작성, 이슈·태스크 관리, AI 인사이트 분석 기능을 제공하는 통합 개발 프로젝트 관리 도구입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Rails 8</span>
+        <span class="tag">GitHub OAuth</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">SQLite</span>
+      </div>
+      <div class="card-footer">
+        <span>프로젝트 관리 · AI 분석</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Docs Hub -->
+    <a class="card accent-amber" href="https://docs.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-amber">📚</div>
+        <span class="card-badge badge-live">LIVE</span>
+      </div>
+      <div>
+        <div class="card-sub">docs.aatto.kr</div>
+        <div class="card-title">Docs Hub</div>
+      </div>
+      <div class="card-desc">
+        메디콘솔 문서 허브. 서비스 가이드, 운영 매뉴얼, 개발 문서를 한 곳에서 관리하고 열람할 수 있는 통합 문서 관리 플랫폼입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">문서 관리</span>
+        <span class="tag">가이드</span>
+        <span class="tag">매뉴얼</span>
+      </div>
+      <div class="card-footer">
+        <span>문서 · 가이드 · 매뉴얼</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 <a href="https://www.aatto.kr">Mediconsol</a> · 모든 서비스는 Docker 기반으로 운영됩니다.</p>
+</footer>
+
+</body>
+</html>
