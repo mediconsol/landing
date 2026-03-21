@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: landing
     restart: unless-stopped
+    volumes:
+      - ./status.json:/usr/share/nginx/html/status.json:ro
     networks:
       - proxy-network
 

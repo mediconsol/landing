@@ -11,7 +11,7 @@
   <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-  <!-- Open Graph (카카오톡, 문자, SNS 공유 미리보기) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.aatto.kr/" />
   <meta property="og:title" content="Mediconsol — 의료 AI 플랫폼" />
@@ -164,7 +164,7 @@
     .section {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 3rem 1.5rem 5rem;
+      padding: 3rem 1.5rem 2rem;
     }
     .section-title {
       font-size: 0.75rem;
@@ -209,6 +209,12 @@
       border-color: rgba(99,179,237,0.3);
       box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(56,189,248,0.1);
     }
+    .card.stopped {
+      opacity: 0.55;
+    }
+    .card.stopped:hover {
+      opacity: 0.8;
+    }
     .card-header {
       display: flex;
       align-items: flex-start;
@@ -222,6 +228,11 @@
       font-size: 1.4rem;
       flex-shrink: 0;
     }
+    .card-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
     .card-badge {
       font-size: 0.68rem;
       padding: 0.2rem 0.55rem;
@@ -233,6 +244,16 @@
       background: rgba(52,211,153,0.15);
       color: var(--green);
       border: 1px solid rgba(52,211,153,0.3);
+    }
+    .badge-stopped {
+      background: rgba(100,116,139,0.15);
+      color: var(--muted);
+      border: 1px solid rgba(100,116,139,0.3);
+    }
+    .badge-new {
+      background: rgba(251,191,36,0.15);
+      color: var(--amber);
+      border: 1px solid rgba(251,191,36,0.3);
     }
     .card-title {
       font-size: 1.05rem;
@@ -289,13 +310,15 @@
     .accent-purple { --card-accent: linear-gradient(90deg, #a78bfa, #7c3aed); }
     .accent-green  { --card-accent: linear-gradient(90deg, #34d399, #059669); }
     .accent-amber  { --card-accent: linear-gradient(90deg, #fbbf24, #d97706); }
+    .accent-rose   { --card-accent: linear-gradient(90deg, #fb7185, #e11d48); }
+    .accent-gray   { --card-accent: linear-gradient(90deg, #64748b, #475569); }
 
     .icon-teal   { background: rgba(56,189,248,0.12); }
     .icon-purple { background: rgba(167,139,250,0.12); }
     .icon-green  { background: rgba(52,211,153,0.12); }
     .icon-amber  { background: rgba(251,191,36,0.12); }
-    .accent-rose { --card-accent: linear-gradient(90deg, #fb7185, #e11d48); }
     .icon-rose   { background: rgba(251,113,133,0.12); }
+    .icon-gray   { background: rgba(100,116,139,0.12); }
 
     /* ── Calendar ── */
     .calendar-section {
@@ -385,12 +408,8 @@
     .calendar-day:hover {
       background: rgba(56,189,248,0.08);
     }
-    .calendar-day.empty {
-      cursor: default;
-    }
-    .calendar-day.empty:hover {
-      background: transparent;
-    }
+    .calendar-day.empty { cursor: default; }
+    .calendar-day.empty:hover { background: transparent; }
     .calendar-day.today {
       background: rgba(56,189,248,0.15);
       color: var(--teal);
@@ -414,8 +433,6 @@
     .calendar-day.selected.has-event::after {
       background: #0a0d14;
     }
-
-    /* Event panel */
     .event-panel {
       display: flex;
       flex-direction: column;
@@ -430,9 +447,7 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .event-panel-date {
-      color: var(--teal);
-    }
+    .event-panel-date { color: var(--teal); }
     .event-list {
       display: flex;
       flex-direction: column;
@@ -450,9 +465,7 @@
       border-radius: 10px;
       transition: border-color 0.2s;
     }
-    .event-item:hover {
-      border-color: rgba(56,189,248,0.3);
-    }
+    .event-item:hover { border-color: rgba(56,189,248,0.3); }
     .event-dot {
       width: 4px;
       border-radius: 4px;
@@ -494,9 +507,7 @@
     }
 
     @media (max-width: 700px) {
-      .calendar-wrapper {
-        grid-template-columns: 1fr;
-      }
+      .calendar-wrapper { grid-template-columns: 1fr; }
     }
 
     /* ── Footer ── */
@@ -509,9 +520,170 @@
     }
     footer a { color: var(--teal); text-decoration: none; }
 
+    /* ── Monitor Section ── */
+    .monitor {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+    .monitor-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .monitor-time {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .monitor-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .gauge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .gauge-ring {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+    }
+    .gauge-ring svg {
+      transform: rotate(-90deg);
+      width: 100px;
+      height: 100px;
+    }
+    .gauge-ring .bg {
+      fill: none;
+      stroke: var(--surface2);
+      stroke-width: 8;
+    }
+    .gauge-ring .fg {
+      fill: none;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s ease, stroke 0.3s;
+    }
+    .gauge-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .gauge-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .gauge-detail {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    /* Docker + Network */
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+    .info-card h3 {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      font-size: 0.82rem;
+    }
+    .info-item + .info-item {
+      border-top: 1px solid var(--border);
+    }
+    .info-val { font-weight: 600; }
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+    }
+    .dot-green { background: var(--green); box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+    .dot-red { background: var(--rose); box-shadow: 0 0 6px rgba(251,113,133,0.5); }
+    .dot-yellow { background: var(--amber); box-shadow: 0 0 6px rgba(251,191,36,0.5); }
+    .dot-gray { background: var(--muted); }
+
+    /* Service status grid */
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.6rem;
+    }
+    .svc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.78rem;
+    }
+    .svc-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .svc-mem {
+      color: var(--muted);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .monitor-loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .monitor-grid { grid-template-columns: repeat(3, 1fr); }
+      .info-row { grid-template-columns: 1fr; }
+    }
     @media (max-width: 600px) {
       .hero-stats { gap: 1.5rem; }
       .grid { grid-template-columns: 1fr; }
+      .monitor-grid { grid-template-columns: 1fr 1fr; }
+      .svc-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -520,7 +692,7 @@
 <!-- Nav -->
 <nav>
   <div class="logo">
-    <div class="logo-icon"><img src="/favicon.png" alt="Mediconsol" /></div>
+    <div class="logo-icon"><img src="/logo.png" alt="Mediconsol" /></div>
     Mediconsol
   </div>
   <span class="nav-badge">● LIVE</span>
@@ -532,15 +704,15 @@
     <span>⚡</span> Medical AI Platform
   </div>
   <h1>의료 현장을 위한<br /><span>AI 서비스 플랫폼</span></h1>
-  <p>재활 스케줄 관리부터 EMR 검증, AI 워크플로우 자동화까지 —<br />메디콘솔의 의료 AI 서비스를 한 곳에서 접근하세요.</p>
+  <p>재활 스케줄 관리부터 EMR 검증, 인증규정 자동화까지 —<br />메디콘솔의 의료 AI 서비스를 한 곳에서 접근하세요.</p>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-num">8</div>
-      <div class="stat-label">운영 중인 서비스</div>
+      <div class="stat-num">14</div>
+      <div class="stat-label">전체 서비스</div>
     </div>
     <div class="stat">
-      <div class="stat-num">24/7</div>
-      <div class="stat-label">무중단 운영</div>
+      <div class="stat-num">11</div>
+      <div class="stat-label">운영 중</div>
     </div>
     <div class="stat">
       <div class="stat-num">SSL</div>
@@ -578,16 +750,99 @@
   </div>
 </section>
 
-<!-- Services -->
+<!-- Live Services -->
 <main class="section">
-  <div class="section-title">서비스 목록 — 8 Services</div>
+  <div class="section-title">운영 중인 서비스 — 11 Services</div>
   <div class="grid">
+
+    <!-- MediCertWizard -->
+    <a class="card accent-amber" href="https://mcw.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-amber">📜</div>
+        <div class="card-badges">
+          <span class="card-badge badge-new">NEW</span>
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">mcw.aatto.kr</div>
+        <div class="card-title">MediCertWizard</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 의료기관 인증규정집 생성·편집·버전관리·출판 플랫폼. 병원 유형별 인증기준 마스터 관리, 규정집 초안 자동 생성, AI 편집·검증, DOCX/PDF 출판을 지원합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+      <div class="card-footer">
+        <span>인증규정 · AI 자동화</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Howol -->
+    <a class="card accent-rose" href="https://howol.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-rose">💊</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">howol.aatto.kr · mso.howol.info</div>
+        <div class="card-title">Howol</div>
+      </div>
+      <div class="card-desc">
+        의료 서비스 운영 플랫폼. Celery 기반 비동기 작업 처리, Flower 모니터링, Redis 캐시를 활용한 고성능 의료 데이터 처리 시스템입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Celery</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+      </div>
+      <div class="card-footer">
+        <span>의료 운영 · 데이터 처리</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- KIMES -->
+    <a class="card accent-purple" href="https://kimes.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-purple">🏛️</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">kimes.aatto.kr</div>
+        <div class="card-title">KIMES</div>
+      </div>
+      <div class="card-desc">
+        의료기기 전시회 관리 시스템. 전시 부스 관리, 참가업체 정보, MinIO 기반 파일 스토리지를 활용한 전시회 운영 플랫폼입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MinIO</span>
+      </div>
+      <div class="card-footer">
+        <span>전시회 · 의료기기</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
 
     <!-- RehabFlow -->
     <a class="card accent-teal" href="https://rehab.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-teal">🏥</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">rehab.aatto.kr</div>
@@ -612,7 +867,9 @@
     <a class="card accent-purple" href="https://rehab2.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-purple">📋</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">rehab2.aatto.kr</div>
@@ -637,7 +894,9 @@
     <a class="card accent-green" href="https://aitool.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-green">🤖</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">aitool.aatto.kr</div>
@@ -662,7 +921,9 @@
     <a class="card accent-rose" href="https://tidewave.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-rose">🌊</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">tidewave.aatto.kr</div>
@@ -687,7 +948,9 @@
     <a class="card accent-purple" href="https://intra.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-purple">🏢</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">intra.aatto.kr</div>
@@ -712,7 +975,9 @@
     <a class="card accent-green" href="https://edu.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-green">🎓</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">edu.aatto.kr</div>
@@ -737,7 +1002,9 @@
     <a class="card accent-teal" href="https://edu2.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-teal">🎓</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">edu2.aatto.kr</div>
@@ -762,7 +1029,9 @@
     <a class="card accent-amber" href="https://docs.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-amber">📚</div>
-        <span class="card-badge badge-live">LIVE</span>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
       </div>
       <div>
         <div class="card-sub">docs.aatto.kr</div>
@@ -785,11 +1054,111 @@
   </div>
 </main>
 
+<!-- Stopped Services -->
+<section class="section" style="padding-top: 1rem;">
+  <div class="section-title">중지된 서비스 — 3 Services (필요 시 실행)</div>
+  <div class="grid">
+
+    <!-- MediConsol RAG -->
+    <a class="card accent-gray stopped" href="https://rag.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-gray">🗂️</div>
+        <div class="card-badges">
+          <span class="card-badge badge-stopped">STOPPED</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">rag.aatto.kr</div>
+        <div class="card-title">MediConsol RAG</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 의료 문서 지식 관리 시스템. 문서 업로드 후 RAG 파이프라인으로 자동 색인·벡터화하고, 자연어 검색과 AI 답변 생성을 통해 병원 내 지식을 즉시 활용할 수 있습니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">OpenAI</span>
+        <span class="tag">Elasticsearch</span>
+      </div>
+      <div class="card-footer">
+        <span>문서 검색 · AI 지식 관리</span>
+        <span class="card-link" style="color: var(--muted);">중지됨</span>
+      </div>
+    </a>
+
+    <!-- Supabase -->
+    <a class="card accent-gray stopped" href="https://supabase-api.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-gray">⚡</div>
+        <div class="card-badges">
+          <span class="card-badge badge-stopped">STOPPED</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">supabase-api.aatto.kr</div>
+        <div class="card-title">Supabase (Self-hosted)</div>
+      </div>
+      <div class="card-desc">
+        셀프호스팅 Supabase 인스턴스. PostgreSQL, Auth, Storage, Edge Functions, REST API를 포함한 풀스택 BaaS 플랫폼으로 AI Practice 등의 백엔드로 활용됩니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">PostgreSQL 15</span>
+        <span class="tag">Kong</span>
+        <span class="tag">GoTrue</span>
+        <span class="tag">PostgREST</span>
+      </div>
+      <div class="card-footer">
+        <span>BaaS · 인증 · 스토리지</span>
+        <span class="card-link" style="color: var(--muted);">중지됨</span>
+      </div>
+    </a>
+
+    <!-- Ollama -->
+    <div class="card accent-gray stopped">
+      <div class="card-header">
+        <div class="card-icon icon-gray">🧠</div>
+        <div class="card-badges">
+          <span class="card-badge badge-stopped">STOPPED</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">localhost:11434</div>
+        <div class="card-title">Ollama</div>
+      </div>
+      <div class="card-desc">
+        로컬 LLM 서버. 오픈소스 대규모 언어 모델을 로컬에서 실행할 수 있는 서버로, 외부 API 의존 없이 AI 추론을 수행할 수 있습니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">LLM</span>
+        <span class="tag">Local AI</span>
+        <span class="tag">Docker</span>
+      </div>
+      <div class="card-footer">
+        <span>로컬 AI · LLM 서버</span>
+        <span class="card-link" style="color: var(--muted);">중지됨</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Server Monitor -->
+<section class="monitor" id="monitor">
+  <div class="monitor-title">
+    <span>서버 모니터링 — Real-time Status</span>
+    <span class="monitor-time" id="monitor-time">Loading...</span>
+  </div>
+  <div id="monitor-content">
+    <div class="monitor-loading">서버 상태를 불러오는 중...</div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer>
-  <p>© 2026 <a href="https://www.aatto.kr">Mediconsol</a> · 모든 서비스는 Docker 기반으로 운영됩니다.</p>
+  <p>&copy; 2026 <a href="https://www.aatto.kr">Mediconsol</a> · 모든 서비스는 Docker 기반으로 운영됩니다. · 서버: Ubuntu 24.04 / 16코어 / 16GB RAM</p>
 </footer>
 
+<!-- Calendar Script -->
 <script>
 (function() {
   const EVENTS = {
@@ -900,6 +1269,139 @@
   renderCalendar();
   renderEvents(selectedDate);
 })();
+</script>
+
+<!-- Monitor Script -->
+<script>
+function gaugeColor(pct) {
+  if (pct < 50) return '#34d399';
+  if (pct < 75) return '#fbbf24';
+  return '#fb7185';
+}
+
+function createGauge(label, pct, detail) {
+  const r = 42, c = 2 * Math.PI * r;
+  const offset = c - (pct / 100) * c;
+  const color = gaugeColor(pct);
+  return `
+    <div class="gauge-card">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 100 100">
+          <circle class="bg" cx="50" cy="50" r="${r}"/>
+          <circle class="fg" cx="50" cy="50" r="${r}"
+            stroke="${color}"
+            stroke-dasharray="${c}"
+            stroke-dashoffset="${offset}"/>
+        </svg>
+        <div class="gauge-value" style="color:${color}">${pct}%</div>
+      </div>
+      <div class="gauge-label">${label}</div>
+      <div class="gauge-detail">${detail}</div>
+    </div>`;
+}
+
+function dotClass(status) {
+  if (status === 'running') return 'dot-green';
+  if (status === 'exited') return 'dot-gray';
+  return 'dot-yellow';
+}
+
+function healthDot(svc) {
+  if (svc.status !== 'running') return 'dot-gray';
+  if (svc.health === 'unhealthy') return 'dot-yellow';
+  return 'dot-green';
+}
+
+function renderMonitor(d) {
+  const memPct = Math.round(d.memory.used_mb / d.memory.total_mb * 100);
+  const swapPct = d.swap.total_mb > 0 ? Math.round(d.swap.used_mb / d.swap.total_mb * 100) : 0;
+
+  const running = d.services.filter(s => s.status === 'running');
+  const stopped = d.services.filter(s => s.status !== 'running');
+
+  const dd = d.data_disk || {percent:0, used_gb:0, total_gb:0};
+
+  let html = `
+    <div class="monitor-grid">
+      ${createGauge('CPU', d.cpu.used, d.cpu.cores + ' cores · Load ' + d.uptime.load.join(' / '))}
+      ${createGauge('Memory', memPct, d.memory.used_mb + ' / ' + d.memory.total_mb + ' MB')}
+      ${createGauge('OS Disk (/)', d.disk.percent, d.disk.used_gb + ' / ' + d.disk.total_gb + ' GB')}
+      ${createGauge('Data Disk', dd.percent, dd.used_gb + ' / ' + dd.total_gb + ' GB')}
+      ${createGauge('Swap', swapPct, d.swap.used_mb + ' / ' + d.swap.total_mb + ' MB')}
+    </div>
+
+    <div class="info-row">
+      <div class="info-card">
+        <h3>Docker Containers</h3>
+        <div class="info-item">
+          <span><span class="dot dot-green"></span>Running</span>
+          <span class="info-val">${d.docker.running}</span>
+        </div>
+        <div class="info-item">
+          <span><span class="dot dot-gray"></span>Stopped</span>
+          <span class="info-val">${d.docker.stopped}</span>
+        </div>
+        <div class="info-item">
+          <span>Total</span>
+          <span class="info-val">${d.docker.total}</span>
+        </div>
+        <div class="info-item">
+          <span>Uptime</span>
+          <span class="info-val">${d.uptime.days}d ${d.uptime.hours}h</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <h3>Network Endpoints</h3>
+        ${d.network.map(n => {
+          const ok = n.code >= 200 && n.code < 400;
+          const name = n.url.replace('http://localhost:', '').replace('/api/v1/health', ' API').replace('/', ' Landing');
+          return `<div class="info-item">
+            <span><span class="dot ${ok ? 'dot-green' : 'dot-red'}"></span>${name}</span>
+            <span class="info-val">${ok ? n.ms + 'ms' : 'HTTP ' + n.code}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div class="info-card" style="margin-bottom:0">
+      <h3>Service Status (${running.length} running · ${stopped.length} stopped)</h3>
+      <div class="svc-grid">
+        ${d.services.map(s => `
+          <div class="svc-item">
+            <span class="dot ${healthDot(s)}"></span>
+            <span class="svc-name" title="${s.name}">${s.name.replace('medicertwizard-','mcw-').replace('-1','')}</span>
+            <span class="svc-mem">${s.mem || '-'}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+
+  document.getElementById('monitor-content').innerHTML = html;
+}
+
+function formatTime(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = Math.round((now - d) / 1000);
+  const local = d.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  return local + (diff < 120 ? ` (${diff}초 전)` : ` (${Math.round(diff/60)}분 전)`);
+}
+
+async function loadStatus() {
+  try {
+    const res = await fetch('/status.json?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    document.getElementById('monitor-time').textContent = formatTime(data.timestamp);
+    renderMonitor(data);
+  } catch (e) {
+    document.getElementById('monitor-content').innerHTML =
+      '<div class="monitor-loading">서버 상태를 불러올 수 없습니다: ' + e.message + '</div>';
+  }
+}
+
+loadStatus();
+setInterval(loadStatus, 60000);
 </script>
 
 </body>
