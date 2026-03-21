@@ -297,6 +297,208 @@
     .accent-rose { --card-accent: linear-gradient(90deg, #fb7185, #e11d48); }
     .icon-rose   { background: rgba(251,113,133,0.12); }
 
+    /* ── Calendar ── */
+    .calendar-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+    .calendar-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .calendar-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--purple));
+      border-radius: 16px 16px 0 0;
+    }
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .calendar-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .calendar-nav {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .calendar-nav button {
+      width: 32px; height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface2);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .calendar-nav button:hover {
+      border-color: rgba(56,189,248,0.4);
+      background: rgba(56,189,248,0.08);
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      text-align: center;
+    }
+    .calendar-dow {
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .calendar-day {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      color: var(--text);
+      border: 1px solid transparent;
+    }
+    .calendar-day:hover {
+      background: rgba(56,189,248,0.08);
+    }
+    .calendar-day.empty {
+      cursor: default;
+    }
+    .calendar-day.empty:hover {
+      background: transparent;
+    }
+    .calendar-day.today {
+      background: rgba(56,189,248,0.15);
+      color: var(--teal);
+      font-weight: 700;
+      border-color: rgba(56,189,248,0.3);
+    }
+    .calendar-day.selected {
+      background: var(--teal);
+      color: #0a0d14;
+      font-weight: 700;
+      border-color: var(--teal);
+    }
+    .calendar-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--event-color, var(--teal));
+    }
+    .calendar-day.selected.has-event::after {
+      background: #0a0d14;
+    }
+
+    /* Event panel */
+    .event-panel {
+      display: flex;
+      flex-direction: column;
+    }
+    .event-panel-header {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .event-panel-date {
+      color: var(--teal);
+    }
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+      overflow-y: auto;
+      max-height: 280px;
+    }
+    .event-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color 0.2s;
+    }
+    .event-item:hover {
+      border-color: rgba(56,189,248,0.3);
+    }
+    .event-dot {
+      width: 4px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .event-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .event-time {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .event-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .event-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .event-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      color: var(--muted);
+      font-size: 0.85rem;
+      gap: 0.5rem;
+      padding: 2rem 0;
+    }
+    .event-empty-icon {
+      font-size: 1.5rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 700px) {
+      .calendar-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -343,6 +545,35 @@
     <div class="stat">
       <div class="stat-num">SSL</div>
       <div class="stat-label">전 서비스 암호화</div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendar -->
+<section class="calendar-section">
+  <div class="section-title">일정 관리 — Schedule</div>
+  <div class="calendar-wrapper">
+    <div class="calendar-panel">
+      <div class="calendar-header">
+        <h3 id="calendarTitle"></h3>
+        <div class="calendar-nav">
+          <button onclick="changeMonth(-1)" aria-label="이전 달">&#9664;</button>
+          <button onclick="changeMonth(1)" aria-label="다음 달">&#9654;</button>
+        </div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <div class="event-panel">
+      <div class="event-panel-header">
+        <span>일정</span>
+        <span class="event-panel-date" id="eventDate"></span>
+      </div>
+      <div class="event-list" id="eventList">
+        <div class="event-empty">
+          <div class="event-empty-icon">📅</div>
+          <span>날짜를 선택하세요</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -558,6 +789,118 @@
 <footer>
   <p>© 2026 <a href="https://www.aatto.kr">Mediconsol</a> · 모든 서비스는 Docker 기반으로 운영됩니다.</p>
 </footer>
+
+<script>
+(function() {
+  const EVENTS = {
+    '2026-03-02': [{ time: '09:00', title: '월간 서비스 점검', desc: '전체 서비스 상태 확인 및 보안 패치', color: 'var(--rose)' }],
+    '2026-03-05': [{ time: '14:00', title: 'RehabFlow 업데이트 배포', desc: 'v2.4 스케줄 최적화 기능 배포', color: 'var(--teal)' }],
+    '2026-03-10': [
+      { time: '10:00', title: '의료진 AI 교육', desc: 'MediEdu Pro 활용 교육 세션', color: 'var(--purple)' },
+      { time: '15:00', title: 'EMR 연동 회의', desc: 'RehabFlow EMR 데이터 연동 논의', color: 'var(--purple)' }
+    ],
+    '2026-03-14': [{ time: '11:00', title: 'Tidewave 스프린트 리뷰', desc: '2주차 스프린트 결과 공유', color: 'var(--green)' }],
+    '2026-03-18': [{ time: '09:30', title: '보안 인증 갱신', desc: 'SSL 인증서 갱신 및 점검', color: 'var(--rose)' }],
+    '2026-03-21': [
+      { time: '10:00', title: '팀 주간 미팅', desc: '주간 업무 현황 공유', color: 'var(--teal)' },
+      { time: '14:00', title: 'AI Practice 신규 기능 기획', desc: '워크플로우 템플릿 확장 논의', color: 'var(--green)' }
+    ],
+    '2026-03-25': [{ time: '13:00', title: 'Docs Hub 콘텐츠 리뷰', desc: '신규 서비스 가이드 문서 검토', color: 'var(--amber)' }],
+    '2026-03-28': [{ time: '16:00', title: '월말 인프라 점검', desc: 'Docker 컨테이너 및 네트워크 정기 점검', color: 'var(--rose)' }],
+    '2026-04-01': [{ time: '09:00', title: '4월 정기 미팅', desc: '월간 계획 수립 및 목표 설정', color: 'var(--teal)' }],
+    '2026-04-07': [{ time: '14:00', title: 'MediEdu Pro 2 런칭 리뷰', desc: '2세대 교육 플랫폼 성과 분석', color: 'var(--purple)' }],
+    '2026-04-15': [{ time: '10:00', title: '분기 보안 감사', desc: '전체 서비스 보안 감사 수행', color: 'var(--rose)' }]
+  };
+
+  let currentYear, currentMonth, selectedDate;
+  const today = new Date();
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function dateKey(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+
+  function renderCalendar() {
+    const titleEl = document.getElementById('calendarTitle');
+    const gridEl = document.getElementById('calendarGrid');
+    const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    titleEl.textContent = currentYear + '년 ' + months[currentMonth];
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const dow = ['일','월','화','수','목','금','토'];
+
+    let html = dow.map(function(d) { return '<div class="calendar-dow">' + d + '</div>'; }).join('');
+
+    for (let i = 0; i < firstDay; i++) {
+      html += '<div class="calendar-day empty"></div>';
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const key = dateKey(currentYear, currentMonth, d);
+      const isToday = (d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear());
+      const isSelected = (selectedDate === key);
+      const events = EVENTS[key];
+
+      let cls = 'calendar-day';
+      if (isToday) cls += ' today';
+      if (isSelected) cls += ' selected';
+      if (events) cls += ' has-event';
+
+      let style = '';
+      if (events) style = ' style="--event-color:' + events[0].color + '"';
+
+      html += '<div class="' + cls + '"' + style + ' onclick="selectDate(\'' + key + '\')">' + d + '</div>';
+    }
+
+    gridEl.innerHTML = html;
+  }
+
+  function renderEvents(key) {
+    const dateEl = document.getElementById('eventDate');
+    const listEl = document.getElementById('eventList');
+    const parts = key.split('-');
+    dateEl.textContent = parts[1] + '/' + parts[2];
+
+    const events = EVENTS[key];
+    if (!events) {
+      listEl.innerHTML = '<div class="event-empty"><div class="event-empty-icon">📭</div><span>등록된 일정이 없습니다</span></div>';
+      return;
+    }
+
+    listEl.innerHTML = events.map(function(ev) {
+      return '<div class="event-item">' +
+        '<div class="event-dot" style="background:' + ev.color + '"></div>' +
+        '<div class="event-info">' +
+          '<div class="event-time">' + ev.time + '</div>' +
+          '<div class="event-title">' + ev.title + '</div>' +
+          '<div class="event-desc">' + ev.desc + '</div>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  window.changeMonth = function(dir) {
+    currentMonth += dir;
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    selectedDate = null;
+    renderCalendar();
+    document.getElementById('eventDate').textContent = '';
+    document.getElementById('eventList').innerHTML = '<div class="event-empty"><div class="event-empty-icon">📅</div><span>날짜를 선택하세요</span></div>';
+  };
+
+  window.selectDate = function(key) {
+    selectedDate = key;
+    renderCalendar();
+    renderEvents(key);
+  };
+
+  // init
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+  selectedDate = dateKey(currentYear, currentMonth, today.getDate());
+  renderCalendar();
+  renderEvents(selectedDate);
+})();
+</script>
 
 </body>
 </html>
