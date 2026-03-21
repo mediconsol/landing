@@ -506,6 +506,145 @@
       opacity: 0.5;
     }
 
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 420px;
+      position: relative;
+    }
+    .modal h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(56,189,248,0.5);
+    }
+    .form-group textarea { resize: vertical; min-height: 60px; }
+    .form-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      margin-top: 1.25rem;
+    }
+    .btn {
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--teal);
+      color: #0a0d14;
+      border-color: var(--teal);
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      background: var(--surface2);
+      color: var(--text);
+    }
+    .btn-secondary:hover { border-color: rgba(56,189,248,0.3); }
+    .btn-danger {
+      background: rgba(251,113,133,0.15);
+      color: var(--rose);
+      border-color: rgba(251,113,133,0.3);
+    }
+    .btn-danger:hover { background: rgba(251,113,133,0.25); }
+    .btn-add {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--teal);
+      color: #0a0d14;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s;
+    }
+    .btn-add:hover { opacity: 0.85; }
+    .event-actions {
+      display: flex;
+      gap: 0.3rem;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .event-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.2rem;
+      opacity: 0.5;
+      transition: opacity 0.15s;
+    }
+    .event-actions button:hover { opacity: 1; }
+    .color-options {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .color-option {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .color-option:hover { transform: scale(1.15); }
+    .color-option.selected { border-color: var(--text); }
+
     @media (max-width: 700px) {
       .calendar-wrapper { grid-template-columns: 1fr; }
     }
@@ -739,6 +878,7 @@
       <div class="event-panel-header">
         <span>일정</span>
         <span class="event-panel-date" id="eventDate"></span>
+        <button class="btn-add" onclick="openAddModal()" title="일정 추가" style="margin-left:auto">+</button>
       </div>
       <div class="event-list" id="eventList">
         <div class="event-empty">
@@ -1153,6 +1293,46 @@
   </div>
 </section>
 
+<!-- Event Modal -->
+<div class="modal-overlay" id="eventModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h3 id="modalTitle">일정 추가</h3>
+    <input type="hidden" id="eventId" />
+    <div class="form-group">
+      <label>날짜</label>
+      <input type="date" id="eventDateInput" />
+    </div>
+    <div class="form-group">
+      <label>시간</label>
+      <input type="time" id="eventTimeInput" />
+    </div>
+    <div class="form-group">
+      <label>제목</label>
+      <input type="text" id="eventTitleInput" placeholder="일정 제목" />
+    </div>
+    <div class="form-group">
+      <label>설명</label>
+      <textarea id="eventDescInput" placeholder="상세 내용 (선택)"></textarea>
+    </div>
+    <div class="form-group">
+      <label>색상</label>
+      <div class="color-options" id="colorOptions">
+        <div class="color-option selected" data-color="var(--teal)" style="background:#38bdf8"></div>
+        <div class="color-option" data-color="var(--green)" style="background:#34d399"></div>
+        <div class="color-option" data-color="var(--purple)" style="background:#a78bfa"></div>
+        <div class="color-option" data-color="var(--amber)" style="background:#fbbf24"></div>
+        <div class="color-option" data-color="var(--rose)" style="background:#fb7185"></div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-danger" id="deleteBtn" onclick="deleteEvent()" style="display:none;margin-right:auto">삭제</button>
+      <button class="btn btn-secondary" onclick="closeModal()">취소</button>
+      <button class="btn btn-primary" onclick="saveEvent()">저장</button>
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer>
   <p>&copy; 2026 <a href="https://www.aatto.kr">Mediconsol</a> · 모든 서비스는 Docker 기반으로 운영됩니다. · 서버: Ubuntu 24.04 / 16코어 / 16GB RAM</p>
@@ -1161,31 +1341,28 @@
 <!-- Calendar Script -->
 <script>
 (function() {
-  const EVENTS = {
-    '2026-03-02': [{ time: '09:00', title: '월간 서비스 점검', desc: '전체 서비스 상태 확인 및 보안 패치', color: 'var(--rose)' }],
-    '2026-03-05': [{ time: '14:00', title: 'RehabFlow 업데이트 배포', desc: 'v2.4 스케줄 최적화 기능 배포', color: 'var(--teal)' }],
-    '2026-03-10': [
-      { time: '10:00', title: '의료진 AI 교육', desc: 'MediEdu Pro 활용 교육 세션', color: 'var(--purple)' },
-      { time: '15:00', title: 'EMR 연동 회의', desc: 'RehabFlow EMR 데이터 연동 논의', color: 'var(--purple)' }
-    ],
-    '2026-03-14': [{ time: '11:00', title: 'Tidewave 스프린트 리뷰', desc: '2주차 스프린트 결과 공유', color: 'var(--green)' }],
-    '2026-03-18': [{ time: '09:30', title: '보안 인증 갱신', desc: 'SSL 인증서 갱신 및 점검', color: 'var(--rose)' }],
-    '2026-03-21': [
-      { time: '10:00', title: '팀 주간 미팅', desc: '주간 업무 현황 공유', color: 'var(--teal)' },
-      { time: '14:00', title: 'AI Practice 신규 기능 기획', desc: '워크플로우 템플릿 확장 논의', color: 'var(--green)' }
-    ],
-    '2026-03-25': [{ time: '13:00', title: 'Docs Hub 콘텐츠 리뷰', desc: '신규 서비스 가이드 문서 검토', color: 'var(--amber)' }],
-    '2026-03-28': [{ time: '16:00', title: '월말 인프라 점검', desc: 'Docker 컨테이너 및 네트워크 정기 점검', color: 'var(--rose)' }],
-    '2026-04-01': [{ time: '09:00', title: '4월 정기 미팅', desc: '월간 계획 수립 및 목표 설정', color: 'var(--teal)' }],
-    '2026-04-07': [{ time: '14:00', title: 'MediEdu Pro 2 런칭 리뷰', desc: '2세대 교육 플랫폼 성과 분석', color: 'var(--purple)' }],
-    '2026-04-15': [{ time: '10:00', title: '분기 보안 감사', desc: '전체 서비스 보안 감사 수행', color: 'var(--rose)' }]
-  };
-
+  let EVENTS = {};
   let currentYear, currentMonth, selectedDate;
   const today = new Date();
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function dateKey(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+  function monthKey(y, m) { return y + '-' + pad(m + 1); }
+
+  async function fetchEvents() {
+    const mk = monthKey(currentYear, currentMonth);
+    try {
+      const res = await fetch('/api/events?month=' + mk);
+      const data = await res.json();
+      EVENTS = {};
+      data.forEach(function(ev) {
+        if (!EVENTS[ev.date]) EVENTS[ev.date] = [];
+        EVENTS[ev.date].push(ev);
+      });
+    } catch (e) {
+      console.error('Failed to fetch events:', e);
+    }
+  }
 
   function renderCalendar() {
     const titleEl = document.getElementById('calendarTitle');
@@ -1230,7 +1407,7 @@
     dateEl.textContent = parts[1] + '/' + parts[2];
 
     const events = EVENTS[key];
-    if (!events) {
+    if (!events || events.length === 0) {
       listEl.innerHTML = '<div class="event-empty"><div class="event-empty-icon">📭</div><span>등록된 일정이 없습니다</span></div>';
       return;
     }
@@ -1241,16 +1418,28 @@
         '<div class="event-info">' +
           '<div class="event-time">' + ev.time + '</div>' +
           '<div class="event-title">' + ev.title + '</div>' +
-          '<div class="event-desc">' + ev.desc + '</div>' +
-        '</div></div>';
+          '<div class="event-desc">' + (ev.description || '') + '</div>' +
+        '</div>' +
+        '<div class="event-actions">' +
+          '<button onclick="openEditModal(' + ev.id + ')" title="수정">✏️</button>' +
+          '<button onclick="confirmDelete(' + ev.id + ')" title="삭제">🗑️</button>' +
+        '</div>' +
+      '</div>';
     }).join('');
   }
 
-  window.changeMonth = function(dir) {
+  async function refresh() {
+    await fetchEvents();
+    renderCalendar();
+    if (selectedDate) renderEvents(selectedDate);
+  }
+
+  window.changeMonth = async function(dir) {
     currentMonth += dir;
     if (currentMonth < 0) { currentMonth = 11; currentYear--; }
     if (currentMonth > 11) { currentMonth = 0; currentYear++; }
     selectedDate = null;
+    await fetchEvents();
     renderCalendar();
     document.getElementById('eventDate').textContent = '';
     document.getElementById('eventList').innerHTML = '<div class="event-empty"><div class="event-empty-icon">📅</div><span>날짜를 선택하세요</span></div>';
@@ -1262,12 +1451,115 @@
     renderEvents(key);
   };
 
-  // init
+  // Modal
+  let selectedColor = 'var(--teal)';
+
+  document.querySelectorAll('.color-option').forEach(function(el) {
+    el.addEventListener('click', function() {
+      document.querySelectorAll('.color-option').forEach(function(o) { o.classList.remove('selected'); });
+      el.classList.add('selected');
+      selectedColor = el.dataset.color;
+    });
+  });
+
+  window.openAddModal = function() {
+    document.getElementById('modalTitle').textContent = '일정 추가';
+    document.getElementById('eventId').value = '';
+    document.getElementById('eventDateInput').value = selectedDate || dateKey(currentYear, currentMonth, today.getDate());
+    document.getElementById('eventTimeInput').value = '09:00';
+    document.getElementById('eventTitleInput').value = '';
+    document.getElementById('eventDescInput').value = '';
+    document.getElementById('deleteBtn').style.display = 'none';
+    selectedColor = 'var(--teal)';
+    document.querySelectorAll('.color-option').forEach(function(o) {
+      o.classList.toggle('selected', o.dataset.color === selectedColor);
+    });
+    document.getElementById('eventModal').classList.add('active');
+  };
+
+  window.openEditModal = function(id) {
+    let ev = null;
+    for (const key in EVENTS) {
+      const found = EVENTS[key].find(function(e) { return e.id === id; });
+      if (found) { ev = found; break; }
+    }
+    if (!ev) return;
+
+    document.getElementById('modalTitle').textContent = '일정 수정';
+    document.getElementById('eventId').value = ev.id;
+    document.getElementById('eventDateInput').value = ev.date;
+    document.getElementById('eventTimeInput').value = ev.time;
+    document.getElementById('eventTitleInput').value = ev.title;
+    document.getElementById('eventDescInput').value = ev.description || '';
+    document.getElementById('deleteBtn').style.display = 'block';
+    selectedColor = ev.color;
+    document.querySelectorAll('.color-option').forEach(function(o) {
+      o.classList.toggle('selected', o.dataset.color === selectedColor);
+    });
+    document.getElementById('eventModal').classList.add('active');
+  };
+
+  window.closeModal = function() {
+    document.getElementById('eventModal').classList.remove('active');
+  };
+
+  window.saveEvent = async function() {
+    const id = document.getElementById('eventId').value;
+    const payload = {
+      date: document.getElementById('eventDateInput').value,
+      time: document.getElementById('eventTimeInput').value,
+      title: document.getElementById('eventTitleInput').value.trim(),
+      description: document.getElementById('eventDescInput').value.trim(),
+      color: selectedColor
+    };
+
+    if (!payload.title) {
+      document.getElementById('eventTitleInput').focus();
+      return;
+    }
+
+    try {
+      if (id) {
+        await fetch('/api/events/' + id, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+      } else {
+        await fetch('/api/events', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+      }
+      closeModal();
+      selectedDate = payload.date;
+      await refresh();
+    } catch (e) {
+      alert('저장 실패: ' + e.message);
+    }
+  };
+
+  window.confirmDelete = function(id) {
+    if (confirm('이 일정을 삭제하시겠습니까?')) {
+      deleteEventById(id);
+    }
+  };
+
+  window.deleteEvent = function() {
+    const id = document.getElementById('eventId').value;
+    if (id && confirm('이 일정을 삭제하시겠습니까?')) {
+      deleteEventById(id);
+      closeModal();
+    }
+  };
+
+  async function deleteEventById(id) {
+    try {
+      await fetch('/api/events/' + id, { method: 'DELETE' });
+      await refresh();
+    } catch (e) {
+      alert('삭제 실패: ' + e.message);
+    }
+  }
+
+  // Init
   currentYear = today.getFullYear();
   currentMonth = today.getMonth();
   selectedDate = dateKey(currentYear, currentMonth, today.getDate());
-  renderCalendar();
-  renderEvents(selectedDate);
+  refresh();
 })();
 </script>
 

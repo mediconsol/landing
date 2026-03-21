@@ -5,10 +5,24 @@ services:
       dockerfile: Dockerfile
     container_name: landing
     restart: unless-stopped
-    volumes:
-      - ./status.json:/usr/share/nginx/html/status.json:ro
+    depends_on:
+      - landing-api
     networks:
       - proxy-network
+
+  landing-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: landing-api
+    restart: unless-stopped
+    volumes:
+      - landing-data:/data
+    networks:
+      - proxy-network
+
+volumes:
+  landing-data:
 
 networks:
   proxy-network:
