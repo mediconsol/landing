@@ -266,6 +266,11 @@
       color: var(--muted);
       margin-bottom: 0.1rem;
     }
+    .card-date {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
     .card-desc {
       font-size: 0.875rem;
       color: #94a3b8;
@@ -895,302 +900,7 @@
   <div class="section-title">운영 중인 서비스 — 16 Services</div>
   <div class="grid">
 
-    <!-- Howol -->
-    <a class="card accent-rose" href="https://howol.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-rose">💊</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">howol.aatto.kr · mso.howol.info</div>
-        <div class="card-title">Howol</div>
-      </div>
-      <div class="card-desc">
-        의료 서비스 운영 플랫폼. Celery 기반 비동기 작업 처리, Flower 모니터링, Redis 캐시를 활용한 고성능 의료 데이터 처리 시스템입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">FastAPI</span>
-        <span class="tag">Celery</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Redis</span>
-      </div>
-      <div class="card-footer">
-        <span>의료 운영 · 데이터 처리</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- KIMES -->
-    <a class="card accent-purple" href="https://kimes.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-purple">🏛️</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">kimes.aatto.kr</div>
-        <div class="card-title">KIMES</div>
-      </div>
-      <div class="card-desc">
-        의료기기 전시회 관리 시스템. 전시 부스 관리, 참가업체 정보, MinIO 기반 파일 스토리지를 활용한 전시회 운영 플랫폼입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">FastAPI</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">MinIO</span>
-      </div>
-      <div class="card-footer">
-        <span>전시회 · 의료기기</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- RehabFlow -->
-    <a class="card accent-teal" href="https://rehab.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-teal">🏥</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">rehab.aatto.kr</div>
-        <div class="card-title">RehabFlow</div>
-      </div>
-      <div class="card-desc">
-        재활운동센터 스케줄 관리 시스템. AG Grid 기반 타임테이블 편집, 치료사·환자 배정, NDT 자격 추적 및 일정 검증 기능을 제공합니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">React 19</span>
-        <span class="tag">Express</span>
-        <span class="tag">AG Grid</span>
-        <span class="tag">TypeScript</span>
-      </div>
-      <div class="card-footer">
-        <span>재활 스케줄 · EMR 관리</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- RehabFlow EMR -->
-    <a class="card accent-purple" href="https://rehab2.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-purple">📋</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">rehab2.aatto.kr</div>
-        <div class="card-title">RehabFlow EMR</div>
-      </div>
-      <div class="card-desc">
-        PT 스케줄 & EMR 교차 검증 시스템. 엑셀 파싱 기반 스케줄·EMR 비교 분석, 청구 누락·과청구 탐지, Gemini AI 분석 리포트를 제공합니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">FastAPI</span>
-        <span class="tag">Python</span>
-        <span class="tag">Gemini AI</span>
-        <span class="tag">Pandas</span>
-      </div>
-      <div class="card-footer">
-        <span>EMR 검증 · AI 분석</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- AI Practice -->
-    <a class="card accent-green" href="https://aitool.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-green">🤖</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">aitool.aatto.kr</div>
-        <div class="card-title">AI Practice</div>
-      </div>
-      <div class="card-desc">
-        메디콘솔 AI 프랙티스 플랫폼. 의료 전문가가 직접 AI 워크플로우 도구를 만들고 실행할 수 있는 플랫폼으로, 문서 요약·환자 안내문 생성 등 업무 자동화를 지원합니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">React 18</span>
-        <span class="tag">Supabase</span>
-        <span class="tag">Claude AI</span>
-        <span class="tag">Vite</span>
-      </div>
-      <div class="card-footer">
-        <span>AI 워크플로우 · 자동화</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Tidewave -->
-    <a class="card accent-rose" href="https://tidewave.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-rose">🌊</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">tidewave.aatto.kr</div>
-        <div class="card-title">Tidewave</div>
-      </div>
-      <div class="card-desc">
-        AI 기반 프로젝트 관리 플랫폼. GitHub 연동, PRD 작성, 이슈·태스크 관리, AI 인사이트 분석 기능을 제공하는 통합 개발 프로젝트 관리 도구입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">Rails 8</span>
-        <span class="tag">GitHub OAuth</span>
-        <span class="tag">Gemini AI</span>
-        <span class="tag">SQLite</span>
-      </div>
-      <div class="card-footer">
-        <span>프로젝트 관리 · AI 분석</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Intranet -->
-    <a class="card accent-purple" href="https://intra.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-purple">🏢</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">intra.aatto.kr</div>
-        <div class="card-title">병원 인트라넷</div>
-      </div>
-      <div class="card-desc">
-        병원 내부 인트라넷 시스템. 직원 관리, 부서별 업무 현황, 공지사항, 내부 문서 공유 등 병원 운영 전반을 지원하는 통합 내부 포털입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">React 18</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">MUI</span>
-        <span class="tag">PostgreSQL</span>
-      </div>
-      <div class="card-footer">
-        <span>내부 포털 · 직원 관리</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- MediEdu -->
-    <a class="card accent-green" href="https://edu.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-green">🎓</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">edu.aatto.kr</div>
-        <div class="card-title">MediEdu Pro</div>
-      </div>
-      <div class="card-desc">
-        AI 기반 병원 교육 플랫폼. SOP·매뉴얼·프로토콜을 AI가 분석해 맞춤형 퀴즈를 자동 생성하고, 의료진이 게임처럼 학습할 수 있는 교육 관리 시스템입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">Rails 8</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">AI 퀴즈</span>
-        <span class="tag">Tailwind</span>
-      </div>
-      <div class="card-footer">
-        <span>의료진 교육 · AI 퀴즈 생성</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- MediEdu Pro 2 -->
-    <a class="card accent-teal" href="https://edu2.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-teal">🎓</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">edu2.aatto.kr</div>
-        <div class="card-title">MediEdu Pro 2</div>
-      </div>
-      <div class="card-desc">
-        AI 기반 병원 교육 플랫폼 2세대. SOP·매뉴얼·프로토콜을 AI가 분석해 맞춤형 퀴즈를 자동 생성하고, 의료진이 게임처럼 학습할 수 있는 교육 관리 시스템입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">Rails 8</span>
-        <span class="tag">SQLite</span>
-        <span class="tag">AI 퀴즈</span>
-        <span class="tag">Tailwind</span>
-      </div>
-      <div class="card-footer">
-        <span>의료진 교육 · AI 퀴즈 생성</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Docs Hub -->
-    <a class="card accent-amber" href="https://docs.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-amber">📚</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">docs.aatto.kr</div>
-        <div class="card-title">Docs Hub</div>
-      </div>
-      <div class="card-desc">
-        메디콘솔 문서 허브. 서비스 가이드, 운영 매뉴얼, 개발 문서를 한 곳에서 관리하고 열람할 수 있는 통합 문서 관리 플랫폼입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">문서 관리</span>
-        <span class="tag">가이드</span>
-        <span class="tag">매뉴얼</span>
-      </div>
-      <div class="card-footer">
-        <span>문서 · 가이드 · 매뉴얼</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- Task -->
-    <a class="card accent-teal" href="https://task.aatto.kr" target="_blank" rel="noopener">
-      <div class="card-header">
-        <div class="card-icon icon-teal">📋</div>
-        <div class="card-badges">
-          <span class="card-badge badge-live">LIVE</span>
-        </div>
-      </div>
-      <div>
-        <div class="card-sub">task.aatto.kr</div>
-        <div class="card-title">Task</div>
-      </div>
-      <div class="card-desc">
-        프로젝트 & 할일 관리 시스템. 프로젝트, 일정, 문서, 프레젠테이션 관리와 Google 로그인, 푸시 알림, MCP 연동을 지원하는 올인원 업무 도구입니다.
-      </div>
-      <div class="card-tags">
-        <span class="tag">Rails 8</span>
-        <span class="tag">Hotwire</span>
-        <span class="tag">SQLite</span>
-        <span class="tag">MCP</span>
-      </div>
-      <div class="card-footer">
-        <span>업무 관리 · 협업</span>
-        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>
-    </a>
-
-    <!-- CRT - 간병교육·관리 플랫폼 -->
+    <!-- CRT - 간병교육·관리 플랫폼 (2026-04-06) -->
     <a class="card accent-green" href="#" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-green">🩺</div>
@@ -1202,6 +912,7 @@
       <div>
         <div class="card-sub">도메인 설정 중</div>
         <div class="card-title">간병교육·관리</div>
+        <div class="card-date">배포일 2026-04-06</div>
       </div>
       <div class="card-desc">
         AI 기반 간병인 교육 및 간병 품질 관리 플랫폼. 동영상 학습·퀴즈·수료증, 간병 활동 기록, AI 위험 탐지(욕창·낙상), 실시간 알림, 분석 대시보드를 제공합니다.
@@ -1218,7 +929,7 @@
       </div>
     </a>
 
-    <!-- ACS - 인증평가 관리 시스템 -->
+    <!-- ACS - 인증평가 관리 시스템 (2026-04-06) -->
     <a class="card accent-amber" href="#" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-amber">🏅</div>
@@ -1230,6 +941,7 @@
       <div>
         <div class="card-sub">도메인 설정 중</div>
         <div class="card-title">ACS 인증평가</div>
+        <div class="card-date">배포일 2026-04-06</div>
       </div>
       <div class="card-desc">
         병원 인증평가 4주기 준비 및 관리 플랫폼. 직원 활동 기록, 조사항목 체크리스트, 라운딩 평가, 교육 시스템, AI 음성·사진 분석 자동 기록을 지원합니다.
@@ -1246,7 +958,7 @@
       </div>
     </a>
 
-    <!-- AIOS - BrainOS -->
+    <!-- AIOS - BrainOS (2026-04-06) -->
     <a class="card accent-purple" href="#" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-purple">🧠</div>
@@ -1258,6 +970,7 @@
       <div>
         <div class="card-sub">도메인 설정 중</div>
         <div class="card-title">BrainOS</div>
+        <div class="card-date">배포일 2026-04-06</div>
       </div>
       <div class="card-desc">
         병원 AI 운영 시스템. 음성·사진·텍스트로 업무를 요청하면 AI가 자동으로 분석·판단·실행하고, 서식 자동 매칭, 멀티테넌시, 감사 가능 로그를 제공합니다.
@@ -1274,7 +987,7 @@
       </div>
     </a>
 
-    <!-- Boolo - 불로병원 홈페이지 -->
+    <!-- Boolo - 불로병원 홈페이지 (2026-04-03) -->
     <a class="card accent-rose" href="#" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-rose">🏥</div>
@@ -1286,6 +999,7 @@
       <div>
         <div class="card-sub">도메인 설정 중</div>
         <div class="card-title">불로병원 홈페이지</div>
+        <div class="card-date">배포일 2026-04-03</div>
       </div>
       <div class="card-desc">
         원주불로병원 공식 홈페이지. 다크테크·따뜻한케어·모던에디토리얼 등 다양한 디자인 시안을 포함한 병원 소개 및 안내 웹사이트입니다.
@@ -1301,7 +1015,7 @@
       </div>
     </a>
 
-    <!-- Paperclip -->
+    <!-- Paperclip (2026-03-31) -->
     <a class="card accent-teal" href="https://ppclip.aatto.kr" target="_blank" rel="noopener">
       <div class="card-header">
         <div class="card-icon icon-teal">📎</div>
@@ -1313,6 +1027,7 @@
       <div>
         <div class="card-sub">ppclip.aatto.kr</div>
         <div class="card-title">Paperclip</div>
+        <div class="card-date">배포일 2026-03-31</div>
       </div>
       <div class="card-desc">
         AI 비즈니스 오케스트레이션 플랫폼. 오픈소스 기반으로 AI 에이전트가 업무를 자동 수행하는 제로휴먼 운영 시스템입니다.
@@ -1325,6 +1040,312 @@
       </div>
       <div class="card-footer">
         <span>AI 자동화 · 오케스트레이션</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Task (2026-03-21) -->
+    <a class="card accent-teal" href="https://task.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-teal">📋</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">task.aatto.kr</div>
+        <div class="card-title">Task</div>
+        <div class="card-date">제작일 2026-03-21</div>
+      </div>
+      <div class="card-desc">
+        프로젝트 & 할일 관리 시스템. 프로젝트, 일정, 문서, 프레젠테이션 관리와 Google 로그인, 푸시 알림, MCP 연동을 지원하는 올인원 업무 도구입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Rails 8</span>
+        <span class="tag">Hotwire</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">MCP</span>
+      </div>
+      <div class="card-footer">
+        <span>업무 관리 · 협업</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- KIMES (2026-03-11) -->
+    <a class="card accent-purple" href="https://kimes.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-purple">🏛️</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">kimes.aatto.kr</div>
+        <div class="card-title">KIMES</div>
+        <div class="card-date">제작일 2026-03-11</div>
+      </div>
+      <div class="card-desc">
+        의료기기 전시회 관리 시스템. 전시 부스 관리, 참가업체 정보, MinIO 기반 파일 스토리지를 활용한 전시회 운영 플랫폼입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MinIO</span>
+      </div>
+      <div class="card-footer">
+        <span>전시회 · 의료기기</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Howol (2025-01-01) -->
+    <a class="card accent-rose" href="https://howol.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-rose">💊</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">howol.aatto.kr · mso.howol.info</div>
+        <div class="card-title">Howol</div>
+        <div class="card-date">제작일 2025-01-01</div>
+      </div>
+      <div class="card-desc">
+        의료 서비스 운영 플랫폼. Celery 기반 비동기 작업 처리, Flower 모니터링, Redis 캐시를 활용한 고성능 의료 데이터 처리 시스템입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Celery</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+      </div>
+      <div class="card-footer">
+        <span>의료 운영 · 데이터 처리</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- AI Practice (2025-12-24) -->
+    <a class="card accent-green" href="https://aitool.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-green">🤖</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">aitool.aatto.kr</div>
+        <div class="card-title">AI Practice</div>
+        <div class="card-date">제작일 2025-12-24</div>
+      </div>
+      <div class="card-desc">
+        메디콘솔 AI 프랙티스 플랫폼. 의료 전문가가 직접 AI 워크플로우 도구를 만들고 실행할 수 있는 플랫폼으로, 문서 요약·환자 안내문 생성 등 업무 자동화를 지원합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">React 18</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Claude AI</span>
+        <span class="tag">Vite</span>
+      </div>
+      <div class="card-footer">
+        <span>AI 워크플로우 · 자동화</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Docs Hub (2025-12-20) -->
+    <a class="card accent-amber" href="https://docs.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-amber">📚</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">docs.aatto.kr</div>
+        <div class="card-title">Docs Hub</div>
+        <div class="card-date">제작일 2025-12-20</div>
+      </div>
+      <div class="card-desc">
+        메디콘솔 문서 허브. 서비스 가이드, 운영 매뉴얼, 개발 문서를 한 곳에서 관리하고 열람할 수 있는 통합 문서 관리 플랫폼입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">문서 관리</span>
+        <span class="tag">가이드</span>
+        <span class="tag">매뉴얼</span>
+      </div>
+      <div class="card-footer">
+        <span>문서 · 가이드 · 매뉴얼</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- RehabFlow EMR (2025-11-30) -->
+    <a class="card accent-purple" href="https://rehab2.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-purple">📋</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">rehab2.aatto.kr</div>
+        <div class="card-title">RehabFlow EMR</div>
+        <div class="card-date">제작일 2025-11-30</div>
+      </div>
+      <div class="card-desc">
+        PT 스케줄 & EMR 교차 검증 시스템. 엑셀 파싱 기반 스케줄·EMR 비교 분석, 청구 누락·과청구 탐지, Gemini AI 분석 리포트를 제공합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Python</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">Pandas</span>
+      </div>
+      <div class="card-footer">
+        <span>EMR 검증 · AI 분석</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- RehabFlow (2025-11-28) -->
+    <a class="card accent-teal" href="https://rehab.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-teal">🏥</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">rehab.aatto.kr</div>
+        <div class="card-title">RehabFlow</div>
+        <div class="card-date">제작일 2025-11-28</div>
+      </div>
+      <div class="card-desc">
+        재활운동센터 스케줄 관리 시스템. AG Grid 기반 타임테이블 편집, 치료사·환자 배정, NDT 자격 추적 및 일정 검증 기능을 제공합니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">React 19</span>
+        <span class="tag">Express</span>
+        <span class="tag">AG Grid</span>
+        <span class="tag">TypeScript</span>
+      </div>
+      <div class="card-footer">
+        <span>재활 스케줄 · EMR 관리</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Intranet (2025-09-28) -->
+    <a class="card accent-purple" href="https://intra.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-purple">🏢</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">intra.aatto.kr</div>
+        <div class="card-title">병원 인트라넷</div>
+        <div class="card-date">제작일 2025-09-28</div>
+      </div>
+      <div class="card-desc">
+        병원 내부 인트라넷 시스템. 직원 관리, 부서별 업무 현황, 공지사항, 내부 문서 공유 등 병원 운영 전반을 지원하는 통합 내부 포털입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">React 18</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">MUI</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+      <div class="card-footer">
+        <span>내부 포털 · 직원 관리</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- Tidewave (2025-09-02) -->
+    <a class="card accent-rose" href="https://tidewave.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-rose">🌊</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">tidewave.aatto.kr</div>
+        <div class="card-title">Tidewave</div>
+        <div class="card-date">제작일 2025-09-02</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 프로젝트 관리 플랫폼. GitHub 연동, PRD 작성, 이슈·태스크 관리, AI 인사이트 분석 기능을 제공하는 통합 개발 프로젝트 관리 도구입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Rails 8</span>
+        <span class="tag">GitHub OAuth</span>
+        <span class="tag">Gemini AI</span>
+        <span class="tag">SQLite</span>
+      </div>
+      <div class="card-footer">
+        <span>프로젝트 관리 · AI 분석</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- MediEdu Pro (2025-07-05) -->
+    <a class="card accent-green" href="https://edu.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-green">🎓</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">edu.aatto.kr</div>
+        <div class="card-title">MediEdu Pro</div>
+        <div class="card-date">제작일 2025-07-05</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 병원 교육 플랫폼. SOP·매뉴얼·프로토콜을 AI가 분석해 맞춤형 퀴즈를 자동 생성하고, 의료진이 게임처럼 학습할 수 있는 교육 관리 시스템입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Rails 8</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">AI 퀴즈</span>
+        <span class="tag">Tailwind</span>
+      </div>
+      <div class="card-footer">
+        <span>의료진 교육 · AI 퀴즈 생성</span>
+        <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </a>
+
+    <!-- MediEdu Pro 2 (2025-07-05) -->
+    <a class="card accent-teal" href="https://edu2.aatto.kr" target="_blank" rel="noopener">
+      <div class="card-header">
+        <div class="card-icon icon-teal">🎓</div>
+        <div class="card-badges">
+          <span class="card-badge badge-live">LIVE</span>
+        </div>
+      </div>
+      <div>
+        <div class="card-sub">edu2.aatto.kr</div>
+        <div class="card-title">MediEdu Pro 2</div>
+        <div class="card-date">제작일 2025-07-05</div>
+      </div>
+      <div class="card-desc">
+        AI 기반 병원 교육 플랫폼 2세대. SOP·매뉴얼·프로토콜을 AI가 분석해 맞춤형 퀴즈를 자동 생성하고, 의료진이 게임처럼 학습할 수 있는 교육 관리 시스템입니다.
+      </div>
+      <div class="card-tags">
+        <span class="tag">Rails 8</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">AI 퀴즈</span>
+        <span class="tag">Tailwind</span>
+      </div>
+      <div class="card-footer">
+        <span>의료진 교육 · AI 퀴즈 생성</span>
         <span class="card-link">바로가기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </div>
     </a>
