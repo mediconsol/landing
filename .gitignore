@@ -1,0 +1,5 @@
+# 매분 cron으로 갱신되는 자동생성 상태 파일 (collect-status.sh)
+status.json
+
+# macOS
+.DS_Store

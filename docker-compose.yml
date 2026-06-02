@@ -4,13 +4,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: landing
+    ports:
+      - "5520:80"
     restart: unless-stopped
+    volumes:
+      - ./status.json:/usr/share/nginx/html/status.json:ro
     depends_on:
       - landing-api
-    volumes:
-      - ./status.json:/usr/share/nginx/html/status.json
-    networks:
-      - proxy-network
 
   landing-api:
     build:
@@ -20,12 +20,6 @@ services:
     restart: unless-stopped
     volumes:
       - landing-data:/data
-    networks:
-      - proxy-network
 
 volumes:
   landing-data:
-
-networks:
-  proxy-network:
-    external: true
