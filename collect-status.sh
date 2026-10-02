@@ -66,16 +66,16 @@ docker_running=$($DOCKER ps -q 2>/dev/null | wc -l | tr -d ' '); docker_running=
 docker_stopped=$($DOCKER ps -q -f status=exited 2>/dev/null | wc -l | tr -d ' '); docker_stopped=${docker_stopped:-0}
 docker_total=$((docker_running + docker_stopped))
 
-# Services
+# Services — 컨테이너 전부 담는다(옛 head -30 은 121개 중 30개만 보여줬다).
+# compose 프로젝트 라벨을 함께 담아 페이지에서 스택별로 묶는다.
+# size 는 컨테이너 쓰기 레이어 크기다(메모리가 아니다 — 옛 필드명 mem 이 거짓말이었다).
 services="["
 first=true
-while IFS= read -r line; do
-  name=$(echo "$line" | awk '{print $1}')
-  status=$(echo "$line" | awk '{print $2}')
-  mem=$(echo "$line" | awk '{print $3}')
+while IFS='|' read -r name status project ports size; do
+  [ -z "$name" ] && continue
   if [ "$first" = true ]; then first=false; else services+=","; fi
-  services+="{\"name\":\"$name\",\"status\":\"$status\",\"mem\":\"$mem\"}"
-done < <($DOCKER ps -a --format "{{.Names}} {{.State}} {{.Size}}" 2>/dev/null | head -30)
+  services+="{\"name\":\"$name\",\"status\":\"$status\",\"project\":\"$project\",\"ports\":\"$ports\",\"size\":\"$size\"}"
+done < <($DOCKER ps -a --format '{{.Names}}|{{.State}}|{{.Label "com.docker.compose.project"}}|{{.Ports}}|{{.Size}}' 2>/dev/null | tr -d '"')
 services+="]"
 
 # Network checks

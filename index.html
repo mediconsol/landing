@@ -833,7 +833,22 @@
       color: var(--muted);
       font-size: 0.7rem;
       flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
     }
+    .svc-stack { margin-bottom: 1.1rem; }
+    .svc-stack:last-child { margin-bottom: 0; }
+    .svc-stack-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin: 0 0 0.45rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .svc-stack-name { color: var(--text); font-weight: 600; letter-spacing: 0.02em; }
+    .svc-stack-count { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+    .svc-stack-count.has-stopped { color: var(--amber); }
 
     .monitor-loading {
       text-align: center;
@@ -1620,6 +1635,33 @@ function dotClass(status) {
   return 'dot-yellow';
 }
 
+// 컨테이너를 스택(compose 프로젝트)별로 묶는다. 맥 수집기는 프로젝트 라벨을 담지만
+// 우분투·asfreeas 수집기는 담지 않아 이름 앞머리로 가른다(정확하진 않지만 충분히 쓸모 있다).
+function stackOf(s) {
+  if (s.project) return s.project;
+  const seg = s.name.split('-');
+  return seg.length > 1 ? seg[0] : s.name;
+}
+
+// 포트는 첫 매핑만 짧게. "127.0.0.1:8810->80/tcp, [::]:8810->80/tcp" → "8810→80"
+function shortPorts(p) {
+  if (!p) return '';
+  const first = String(p).split(',')[0].trim();
+  const mapped = first.match(/(\d+)->(\d+)/);
+  if (mapped) return mapped[1] + '→' + mapped[2];
+  const bare = first.match(/^(\d+)\//);
+  return bare ? bare[1] : '';
+}
+
+// 오른쪽 작은 글씨: 포트가 있으면 포트, 없으면 수집기가 준 메모리값.
+function svcMeta(s) {
+  const port = shortPorts(s.ports);
+  if (port) return port;
+  // 우분투 수집기의 mem 은 전부 "0B" 로 와서(실측) 쓸모가 없다 → 빈칸.
+  const mem = (s.mem || '').trim();
+  return (mem && mem !== '0B') ? mem : '';
+}
+
 function healthDot(svc) {
   if (svc.status !== 'running') return 'dot-gray';
   if (svc.health === 'unhealthy') return 'dot-yellow';
@@ -1631,7 +1673,7 @@ function healthDot(svc) {
 function normalizeStatus(d) {
   if (!Array.isArray(d.services)) {
     const cs = (d.docker && Array.isArray(d.docker.containers)) ? d.docker.containers : [];
-    d.services = cs.map(c => ({ name: c.name, status: c.status }));
+    d.services = cs.map(c => ({ name: c.name, status: c.status, ports: c.ports, image: c.image }));
   }
   if (!Array.isArray(d.network)) d.network = [];
   return d;
@@ -1644,6 +1686,22 @@ function renderMonitor(d) {
 
   const running = d.services.filter(s => s.status === 'running');
   const stopped = d.services.filter(s => s.status !== 'running');
+
+  // 멈춘 게 섞인 스택을 위로, 그다음 큰 스택 순. 스택 안에서는 도는 것부터.
+  const byStack = new Map();
+  for (const s of d.services) {
+    const k = stackOf(s);
+    if (!byStack.has(k)) byStack.set(k, []);
+    byStack.get(k).push(s);
+  }
+  const stacks = [...byStack.entries()].map(([k, items]) => {
+    items.sort((a, b) => (a.status === 'running' ? 0 : 1) - (b.status === 'running' ? 0 : 1) || a.name.localeCompare(b.name));
+    return [k, items];
+  }).sort((a, b) => {
+    const badA = a[1].some(s => s.status !== 'running'), badB = b[1].some(s => s.status !== 'running');
+    if (badA !== badB) return badA ? -1 : 1;
+    return b[1].length - a[1].length || a[0].localeCompare(b[0]);
+  });
 
   // 데이터 디스크가 따로 없는 호스트(asfreeas)는 그 게이지를 빼고 4칸으로 깐다.
   const gauges = [
@@ -1696,16 +1754,28 @@ function renderMonitor(d) {
     </div>
 
     <div class="info-card" style="margin-bottom:0">
-      <h3>Service Status (${running.length} running · ${stopped.length} stopped)</h3>
-      <div class="svc-grid">
-        ${d.services.map(s => `
-          <div class="svc-item">
-            <span class="dot ${healthDot(s)}"></span>
-            <span class="svc-name" title="${s.name}">${s.name.replace('medicertwizard-','mcw-').replace('-1','')}</span>
-            <span class="svc-mem">${s.mem || '-'}</span>
+      <h3>Service Status (${running.length} running · ${stopped.length} stopped · ${stacks.length} stacks)</h3>
+      ${stacks.map(([stack, items]) => {
+        const up = items.filter(s => s.status === 'running').length;
+        return `
+        <div class="svc-stack">
+          <div class="svc-stack-head">
+            <span class="svc-stack-name">${stack}</span>
+            <span class="svc-stack-count${up < items.length ? ' has-stopped' : ''}">${up} / ${items.length}</span>
           </div>
-        `).join('')}
-      </div>
+          <div class="svc-grid">
+            ${items.map(s => {
+              const short = (s.name.startsWith(stack + '-') ? s.name.slice(stack.length + 1) : s.name).replace(/-1$/, '');
+              const meta = svcMeta(s);
+              return `<div class="svc-item">
+                <span class="dot ${healthDot(s)}"></span>
+                <span class="svc-name" title="${s.name}">${short || s.name}</span>
+                <span class="svc-mem">${meta}</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }).join('')}
     </div>`;
 
   document.getElementById('monitor-content').innerHTML = html;
