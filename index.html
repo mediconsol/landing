@@ -1673,7 +1673,9 @@ function healthDot(svc) {
 function normalizeStatus(d) {
   if (!Array.isArray(d.services)) {
     const cs = (d.docker && Array.isArray(d.docker.containers)) ? d.docker.containers : [];
-    d.services = cs.map(c => ({ name: c.name, status: c.status, ports: c.ports, image: c.image }));
+    d.services = cs.map(c => ({
+      name: c.name, status: c.status, ports: c.ports, image: c.image, project: c.project,
+    }));
   }
   if (!Array.isArray(d.network)) d.network = [];
   return d;
