@@ -5,7 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: landing
     ports:
-      - "5520:80"
+      # 공개 노출은 cloudflared 터널(monitor.aatto.kr)이 담당한다. 호스트 포트는 디버그용.
+      - "127.0.0.1:5520:80"
     restart: unless-stopped
     volumes:
       - ./status.json:/usr/share/nginx/html/status.json:ro
@@ -20,6 +21,18 @@ services:
     restart: unless-stopped
     volumes:
       - landing-data:/data
+
+  # monitor.aatto.kr 전용 터널 커넥터. 같은 네트워크라 http://landing:80 으로 바로 간다.
+  # 설정·자격증명: ./deploy/cloudflared (credentials.json 은 커밋 제외)
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: landing-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./deploy/cloudflared:/etc/cloudflared:ro
+    depends_on:
+      - landing
 
 volumes:
   landing-data:

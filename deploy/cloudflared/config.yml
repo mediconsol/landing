@@ -1,0 +1,14 @@
+# 서버 모니터링 페이지 전용 터널 (스택 내 커넥터) — 자기완결 구성
+# 터널 'monitor_aattokr' (e31e6c0e…). 자격증명 + 로컬 ingress 로 라우팅 직접 정의.
+# 커넥터가 landing(nginx) 과 같은 compose 네트워크에 있어 http://landing:80 직접 도달.
+#   monitor.aatto.kr → http://landing:80  (nginx: basic auth, /api→landing-api, /status.json 공개)
+#
+# 2026-10-03: 옛 주소 aatto.kr 은 비아토(www.aatto.kr)로 넘어갔다 → 이 페이지는 monitor 로 옮김.
+#   DNS: monitor CNAME e31e6c0e-3fb0-425e-8af1-5cfa3831e451.cfargotunnel.com (proxied)
+#        cloudflared tunnel route dns 로 등록 — 옛 mediconsol_aattokr 터널 레코드를 덮어썼다.
+tunnel: e31e6c0e-3fb0-425e-8af1-5cfa3831e451
+credentials-file: /etc/cloudflared/credentials.json
+ingress:
+  - hostname: monitor.aatto.kr
+    service: http://landing:80
+  - service: http_status:404

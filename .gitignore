@@ -3,3 +3,6 @@ status.json
 
 # macOS
 .DS_Store
+
+# cloudflared 터널 자격증명 (비밀)
+deploy/cloudflared/credentials.json
