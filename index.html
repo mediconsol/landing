@@ -716,6 +716,7 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
+    .monitor-grid-4 { grid-template-columns: repeat(4, 1fr); }
     .gauge-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -1305,6 +1306,7 @@
     <span class="host-tabs" id="host-tabs">
       <button type="button" class="host-tab" data-host="mac">맥미니</button>
       <button type="button" class="host-tab" data-host="ubuntu">우분투</button>
+      <button type="button" class="host-tab" data-host="asfreeas">asfreeas</button>
     </span>
     <span class="monitor-time" id="monitor-time">Loading...</span>
   </div>
@@ -1624,22 +1626,40 @@ function healthDot(svc) {
   return 'dot-green';
 }
 
+// 호스트마다 수집기가 달라 모양이 조금씩 다르다. 렌더러가 기대하는 꼴로 맞춘다.
+// asfreeas(jin-monitor): services/network 대신 docker.containers 를 담고 data_disk 가 없다.
+function normalizeStatus(d) {
+  if (!Array.isArray(d.services)) {
+    const cs = (d.docker && Array.isArray(d.docker.containers)) ? d.docker.containers : [];
+    d.services = cs.map(c => ({ name: c.name, status: c.status }));
+  }
+  if (!Array.isArray(d.network)) d.network = [];
+  return d;
+}
+
 function renderMonitor(d) {
+  d = normalizeStatus(d);
   const memPct = Math.round(d.memory.used_mb / d.memory.total_mb * 100);
   const swapPct = d.swap.total_mb > 0 ? Math.round(d.swap.used_mb / d.swap.total_mb * 100) : 0;
 
   const running = d.services.filter(s => s.status === 'running');
   const stopped = d.services.filter(s => s.status !== 'running');
 
-  const dd = d.data_disk || {percent:0, used_gb:0, total_gb:0};
+  // 데이터 디스크가 따로 없는 호스트(asfreeas)는 그 게이지를 빼고 4칸으로 깐다.
+  const gauges = [
+    createGauge('CPU', d.cpu.used, d.cpu.cores + ' cores · Load ' + d.uptime.load.join(' / ')),
+    createGauge('Memory', memPct, d.memory.used_mb + ' / ' + d.memory.total_mb + ' MB'),
+    createGauge('OS Disk (/)', d.disk.percent, d.disk.used_gb + ' / ' + d.disk.total_gb + ' GB'),
+  ];
+  if (d.data_disk) {
+    const dd = d.data_disk;
+    gauges.push(createGauge('Data Disk', dd.percent, dd.used_gb + ' / ' + dd.total_gb + ' GB'));
+  }
+  gauges.push(createGauge('Swap', swapPct, d.swap.used_mb + ' / ' + d.swap.total_mb + ' MB'));
 
   let html = `
-    <div class="monitor-grid">
-      ${createGauge('CPU', d.cpu.used, d.cpu.cores + ' cores · Load ' + d.uptime.load.join(' / '))}
-      ${createGauge('Memory', memPct, d.memory.used_mb + ' / ' + d.memory.total_mb + ' MB')}
-      ${createGauge('OS Disk (/)', d.disk.percent, d.disk.used_gb + ' / ' + d.disk.total_gb + ' GB')}
-      ${createGauge('Data Disk', dd.percent, dd.used_gb + ' / ' + dd.total_gb + ' GB')}
-      ${createGauge('Swap', swapPct, d.swap.used_mb + ' / ' + d.swap.total_mb + ' MB')}
+    <div class="monitor-grid${gauges.length === 4 ? ' monitor-grid-4' : ''}">
+      ${gauges.join('\n      ')}
     </div>
 
     <div class="info-row">
@@ -1702,8 +1722,9 @@ function formatTime(ts) {
 // 모니터링 대상 호스트. 우분투(ubuntu-aatto-kr)는 nginx 가 타일넷으로 프록시한다
 // (/ubuntu/status.json → 그 서버의 landing). 두 status.json 스키마가 같아 렌더러를 공유한다.
 const HOSTS = {
-  mac:    { label: '맥미니', url: '/status.json' },
-  ubuntu: { label: '우분투', url: '/ubuntu/status.json' },
+  mac:      { label: '맥미니',   url: '/status.json' },
+  ubuntu:   { label: '우분투',   url: '/ubuntu/status.json' },
+  asfreeas: { label: 'asfreeas', url: '/asfreeas/status.json' },
 };
 let currentHost = 'mac';
 try {
