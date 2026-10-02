@@ -682,12 +682,33 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
     .monitor-time {
       font-size: 0.7rem;
       color: var(--muted);
       text-transform: none;
       letter-spacing: 0;
+    }
+    .host-tabs { display: inline-flex; gap: 0.25rem; }
+    .host-tab {
+      font: inherit;
+      font-size: 0.7rem;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      cursor: pointer;
+    }
+    .host-tab:hover { color: var(--text); }
+    .host-tab.is-on {
+      color: var(--bg);
+      background: var(--teal);
+      border-color: var(--teal);
     }
     .monitor-grid {
       display: grid;
@@ -1281,6 +1302,10 @@
 <section class="monitor" id="monitor">
   <div class="monitor-title">
     <span>서버 모니터링 — Real-time Status</span>
+    <span class="host-tabs" id="host-tabs">
+      <button type="button" class="host-tab" data-host="mac">맥미니</button>
+      <button type="button" class="host-tab" data-host="ubuntu">우분투</button>
+    </span>
     <span class="monitor-time" id="monitor-time">Loading...</span>
   </div>
   <div id="monitor-content">
@@ -1674,19 +1699,55 @@ function formatTime(ts) {
   return local + (diff < 120 ? ` (${diff}초 전)` : ` (${Math.round(diff/60)}분 전)`);
 }
 
+// 모니터링 대상 호스트. 우분투(ubuntu-aatto-kr)는 nginx 가 타일넷으로 프록시한다
+// (/ubuntu/status.json → 그 서버의 landing). 두 status.json 스키마가 같아 렌더러를 공유한다.
+const HOSTS = {
+  mac:    { label: '맥미니', url: '/status.json' },
+  ubuntu: { label: '우분투', url: '/ubuntu/status.json' },
+};
+let currentHost = 'mac';
+try {
+  const saved = localStorage.getItem('monitorHost');
+  if (saved && HOSTS[saved]) currentHost = saved;
+} catch (e) {}
+
 async function loadStatus() {
+  const host = HOSTS[currentHost];
   try {
-    const res = await fetch('/status.json?t=' + Date.now());
+    const res = await fetch(host.url + '?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     document.getElementById('monitor-time').textContent = formatTime(data.timestamp);
     renderMonitor(data);
   } catch (e) {
+    document.getElementById('monitor-time').textContent = '-';
     document.getElementById('monitor-content').innerHTML =
-      '<div class="monitor-loading">서버 상태를 불러올 수 없습니다: ' + e.message + '</div>';
+      '<div class="monitor-loading">' + host.label + ' 상태를 불러올 수 없습니다: ' + e.message + '</div>';
   }
 }
 
+function syncHostTabs() {
+  document.querySelectorAll('#host-tabs .host-tab').forEach(b => {
+    b.classList.toggle('is-on', b.dataset.host === currentHost);
+  });
+}
+
+function selectHost(h) {
+  if (!HOSTS[h] || h === currentHost) return;
+  currentHost = h;
+  try { localStorage.setItem('monitorHost', h); } catch (e) {}
+  syncHostTabs();
+  document.getElementById('monitor-content').innerHTML =
+    '<div class="monitor-loading">' + HOSTS[h].label + ' 상태를 불러오는 중...</div>';
+  loadStatus();
+}
+
+document.getElementById('host-tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('.host-tab');
+  if (b) selectHost(b.dataset.host);
+});
+
+syncHostTabs();
 loadStatus();
 setInterval(loadStatus, 60000);
 </script>
